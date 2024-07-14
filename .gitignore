@@ -18,3 +18,18 @@ web-build/
 
 expo-env.d.ts
 # @end expo-cli
+
+# amplify
+.amplify
+amplify_outputs*
+amplifyconfiguration*
+
+# Android
+/android
+/app/build
+
+# iOS
+/ios
+**/*.xcodeproj
+**/*.xcworkspace
+**/*.xcuserstate
