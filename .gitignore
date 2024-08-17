@@ -33,3 +33,6 @@ amplifyconfiguration*
 **/*.xcodeproj
 **/*.xcworkspace
 **/*.xcuserstate
+
+# Enviromental variables
+.env*
