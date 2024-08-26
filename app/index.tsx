@@ -5,9 +5,9 @@ import { StyleSheet, View, Button, SafeAreaView } from 'react-native';
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolClientId: process.env.AWS_USER_POOL_WEB_CLIENT_ID as string,
-      userPoolId: process.env.AWS_USER_POOL_ID as string,
-      identityPoolId: process.env.AWS_IDENTITY_POOL_ID as string,
+      userPoolClientId: process.env.EXPO_PUBLIC_AWS_USER_POOL_WEB_CLIENT_ID as string,
+      userPoolId: process.env.EXPO_PUBLIC_AWS_USER_POOL_ID as string,
+      identityPoolId: process.env.EXPO_PUBLIC_AWS_IDENTITY_POOL_ID as string,
     },
   },
 });

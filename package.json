@@ -8,9 +8,6 @@
     "start:dev": "cp .env.dev .env && npm run start",
     "start:testing": "cp .env.testing .env && npm run start",
     "start:prod": "cp .env.prod .env && npm start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint"
   },
