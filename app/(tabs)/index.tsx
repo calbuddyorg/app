@@ -1,7 +1,7 @@
-import { Button, View, StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   signOutButton: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
   },
 });
