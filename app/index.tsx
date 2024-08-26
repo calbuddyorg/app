@@ -1,25 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Button, SafeAreaView } from 'react-native';
-
-import { Amplify } from "aws-amplify";
-import { Authenticator, useAuthenticator } from "@aws-amplify/ui-react-native";
-
-import {
-  AWS_USER_POOL_ID, 
-  AWS_USER_POOL_WEB_CLIENT_ID, 
-  AWS_IDENTITY_POOL_ID 
-} from '@env';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
+import { Amplify } from 'aws-amplify';
+import { StyleSheet, View, Button, SafeAreaView } from 'react-native';
 
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolClientId: AWS_USER_POOL_WEB_CLIENT_ID,
-      userPoolId: AWS_USER_POOL_ID,
-      identityPoolId: AWS_IDENTITY_POOL_ID,
+      userPoolClientId: process.env.AWS_USER_POOL_WEB_CLIENT_ID as string,
+      userPoolId: process.env.AWS_USER_POOL_ID as string,
+      identityPoolId: process.env.AWS_IDENTITY_POOL_ID as string,
     },
   },
-  }
-);
+});
 
 const SignOutButton = () => {
   const { signOut } = useAuthenticator();
@@ -45,6 +36,6 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   signOutButton: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
   },
 });
