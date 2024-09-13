@@ -6,19 +6,16 @@ import {
   Platform,
   Modal,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import React, { useCallback, useRef, useState } from "react";
-import Animated, {
-  FlipInXDown,
-  FlipOutXUp,
-} from "react-native-reanimated";
+import Animated, { FlipInXDown, FlipOutXUp } from "react-native-reanimated";
 import {
   ExpandableCalendar,
   CalendarProvider,
   AgendaList,
 } from "react-native-calendars";
-  
+
 import { agendaItems, getMarkedDates } from "@/constants/agendaItems";
 import AgendaItem from "./components/AgendaItem";
 import UserHeader from "@/components/UserHeader";
@@ -27,33 +24,26 @@ import { ColorsS } from "@/styles/Colors";
 import NewEvent from "./components/NewEvent";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-
 const ITEMS: any[] = agendaItems;
 
 export default function calendarScreen() {
   const [addEvent, setAddEvent] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-
-	const handleClosePress = () => bottomSheetRef.current?.close();
-	const handleOpenPress = () => bottomSheetRef.current?.expand();
+  const handleClosePress = () => bottomSheetRef.current?.close();
+  const handleOpenPress = () => bottomSheetRef.current?.expand();
   const marked = useRef(getMarkedDates());
   const renderItem = useCallback(({ item }: any) => {
     return <AgendaItem item={item} />;
   }, []);
-  function toggleModal(){
-    setAddEvent(!addEvent)
+  function toggleModal() {
+    setAddEvent(!addEvent);
   }
   return (
-    
-
-
-    <SafeAreaView style={{flex:1,}}>
-    
-      
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.headers}>
         <UserHeader />
-        <DateHeader openAddEventModal={toggleModal}  />
+        <DateHeader openAddEventModal={toggleModal} />
       </View>
 
       <CalendarProvider
@@ -61,9 +51,7 @@ export default function calendarScreen() {
         // onDateChanged={onDateChanged}
         // onMonthChange={onMonthChange}
         showTodayButton={!addEvent}
-        
       >
-        
         <ExpandableCalendar
           // renderHeader={()=>undefined}
           style={styles.calendar}
@@ -81,21 +69,16 @@ export default function calendarScreen() {
           theme={calentarStyling}
         />
 
-<NewEvent show={addEvent} setShow={setAddEvent}></NewEvent>
-          
+        
+        <NewEvent show={addEvent} setShow={setAddEvent}></NewEvent>
 
-            <AgendaList
-              sections={ITEMS}
-              renderItem={renderItem}
-              sectionStyle={styles.section}/>
-            
+        <AgendaList
+          sections={ITEMS}
+          renderItem={renderItem}
+          sectionStyle={styles.section}
+        />
       </CalendarProvider>
-
-
     </SafeAreaView>
-
-    
-
   );
 }
 const calentarStyling = {
@@ -109,12 +92,12 @@ const calentarStyling = {
   textDayHeaderFontWeight: "bold",
   textSectionTitleColor: ColorsS.Secondary,
   arrowColor: "transparent",
-  todayButton:{display:'none'}
+  todayButton: { display: "none" },
 };
 
 const styles = StyleSheet.create({
   todayButton: {
-    display: 'none',
+    display: "none",
   },
   calendar: {
     elevation: 0, // remove shadow on Android

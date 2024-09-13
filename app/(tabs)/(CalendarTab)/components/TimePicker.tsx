@@ -1,121 +1,96 @@
-import { Button, Platform, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import {
+  Button,
+  Platform,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useState } from "react";
 
-import DateTimePicker, { DateTimePickerAndroid, DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { ColorsS } from '@/styles/Colors';
+import DateTimePicker, {
+  DateTimePickerAndroid,
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
+import { ColorsS } from "@/styles/Colors";
 
+type TimePickerProps = {
+  title: any;
+  selectedDate: Date;
+  selectedTime: Date;
+  minDate?: Date;
+  onDateChange: (date: Date | undefined) => void;
+  onTimeChange: (time: Date | undefined) => void;
+};
+type ValuePiece = Date | null;
 
-export default function TimePicker() {
-  const [date, setDate] = useState(new Date());
-  const [showPicker, setShowPicker] = useState(false);
-
-  const toggleDatePicker=()=>{
-    setShowPicker(!showPicker)
-}
-
-function formatTime(date: Date) {
-  return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-}
-// Set time for IOS Device
-const confirmIOSDate = () =>{
-    setDate(date);
-    formatTime(date);
-    toggleDatePicker();
-}
-
-// Set time for andorid devices
-const onChange = ({type}: any, selectedDate: any)=>{
-    if (type=="set") {
-        const currentDate= selectedDate;
-        setDate(currentDate);
-        if (Platform.OS === "android") {
-            toggleDatePicker();
-            setDate(currentDate.getTime())
-        }
-
-    }else{
-        toggleDatePicker()
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+export default function TimePicker({
+  title,
+  selectedDate,
+  selectedTime,
+  minDate,
+  onDateChange,
+  onTimeChange,
+}: TimePickerProps) {
+  const handleDateChange = (event: DateTimePickerEvent, date?: Date) => {
+    if (date) {
+      onDateChange(date); // Only call if a valid date is selected
     }
-}
+  };
+  const handleTimeChange = (event: DateTimePickerEvent, time?: Date) => {
+    if (time) {
+        onTimeChange(time); 
+    }
+  };
+
+  const value = new Date(); 
+
   return (
-  <View>
-    <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', marginHorizontal:10}}>
     <View>
-        <Text style={styles.secondaryHeading}>Hola</Text>
-    </View>
-    {/* And button to diplay time picker */}
-    <View>
-    {!showPicker && (
-        <Pressable onPress={toggleDatePicker}>
-            <View style={{backgroundColor:ColorsS.LIGHT_GRAY_Background,
-                          borderRadius:10, 
-                          paddingHorizontal:10}}>
-            <Text style={styles.timeStyling}>{formatTime(date)}</Text>
-            </View>
-        </Pressable>)}
-    </View>
-</View>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: 1,
+          alignItems: "center",
+        }}
+      >
+        <View style={{ width: "14%" }}>
+          <Text style={styles.secondaryHeading}>{title}</Text>
+        </View>
 
-{showPicker&&(
-  <View style={{backgroundColor:ColorsS.LIGHT_GRAY_Background,
-      borderRadius:10}}>
-<DateTimePicker mode="time"
-                display='spinner'
-                value={date}
-                onChange={onChange}
-                style={styles.datePicker}></DateTimePicker>
-                </View>
-)}
+        <DateTimePicker onChange={handleTimeChange} mode="time" value={selectedTime}></DateTimePicker>
 
-  {/* Confirm time button */}
-  {showPicker&&Platform.OS==='ios'&&(
-      <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
-          <View style={{flex:1}}>
-              <TouchableOpacity style={styles.closeButton} onPress={confirmIOSDate}><Text style={{fontSize:20, padding:5, alignSelf:'center'}}>Close</Text></TouchableOpacity>
-          </View>
-          <View style={{flex:1}}>
-              <TouchableOpacity style={styles.confirmButton} onPress={confirmIOSDate}><Text style={{fontSize:20,padding:5, alignSelf:'center', color:ColorsS.LIGHT_GRAY_Background}}>Confirm</Text></TouchableOpacity>
-          </View>
-          
+        <DateTimePicker
+          value={selectedDate}
+          minimumDate={minDate} // Optional: Only used for the end date to enforce min date
+          onChange={handleDateChange}
+        ></DateTimePicker>
       </View>
-  )}
-  </View>
-    
-  )
+    </View>
+  );
 }
-
 
 const styles = StyleSheet.create({
-  closeButton:{
-      borderColor:ColorsS.Primary,
-      borderRadius:99,
-      borderWidth:1,
-      margin:10,
-      alignSelf:'stretch'
-
+  closeButton: {
+    borderColor: ColorsS.Primary,
+    borderRadius: 99,
+    borderWidth: 1,
+    margin: 10,
+    alignSelf: "stretch",
   },
-  confirmButton:{
-      backgroundColor:ColorsS.Primary,
-      borderRadius:99,
-      margin:10,
-      alignSelf:'stretch'
+  confirmButton: {
+    backgroundColor: ColorsS.Primary,
+    borderRadius: 99,
+    margin: 10,
+    alignSelf: "stretch",
   },
-  secondaryHeading:{
-      fontSize:25,
-      fontFamily:'TitilliumWeb',
-      color:ColorsS.Primary,
-      alignItems:'center',
+  secondaryHeading: {
+    color: ColorsS.Primary,
+    fontWeight: "bold",
+    fontSize: 20,
   },
-  timeStyling:{
-      fontSize:25,
-      fontFamily:'TitilliumWeb',
-      color:ColorsS.Primary,
-      
-  },
-  datePicker:{
-      height:120,
-      marginTop:5,
-      
-      
-  },
-})
+});
