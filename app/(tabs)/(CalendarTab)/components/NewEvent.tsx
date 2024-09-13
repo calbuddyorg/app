@@ -1,24 +1,18 @@
 import { ColorsS } from "@/styles/Colors";
-import React, { useState } from "react";
+import React from "react";
 import {
-  Alert,
   Modal,
   StyleSheet,
   Text,
-  Pressable,
   View,
-  TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Button,
 } from "react-native";
 import Fontisto from "@expo/vector-icons/Fontisto";
-import TimePicker from "./TimePicker";
-
-
+import NewEventForm from "./NewEventForm/NewEventForm";
 
 interface NewEventProps {
   show: boolean;
@@ -26,19 +20,11 @@ interface NewEventProps {
 }
 
 const NewEvent: React.FC<NewEventProps> = ({ show, setShow }) => {
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
+  
+  
   return (
     <View style={styles.centeredView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={show}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setShow(false); // Close the modal
-        }}
-      >
+      <Modal animationType="slide" transparent={true} visible={show}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior="padding" // Changed to "padding"
@@ -58,30 +44,12 @@ const NewEvent: React.FC<NewEventProps> = ({ show, setShow }) => {
                   </TouchableOpacity>
                 </View>
 
-                <TextInput
-                  placeholder="Title"
-                  editable
-                  style={styles.titleInput}
-                />
-                <TextInput
-                  placeholder="Description"
-                  editable
-                  multiline
-                  numberOfLines={4}
-                  style={styles.descriptionInput}
-                  textAlignVertical="top"
-                />
-                <View>
-                  <TimePicker/>
-
-
-                </View>
+                {/* Form for adding new event */}
+                <NewEventForm/>
+                
               </View>
-              
             </View>
-            
           </TouchableWithoutFeedback>
-          
         </KeyboardAvoidingView>
       </Modal>
     </View>
@@ -102,7 +70,7 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 20,
     padding: 35,
     width: "100%",
-    height: "50%",
+    height: "55%",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -127,38 +95,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: ColorsS.Primary,
   },
-  titleInput: {
-    height: 40,
-    padding: 10,
-    width: "100%",
-    backgroundColor: "white",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 1,
-    elevation: 3,
-    marginVertical: 20,
-    borderRadius: 10,
-  },
-  descriptionInput: {
-    padding: 10,
-    backgroundColor: "white",
-    height: 100,
-    maxHeight: 100,
-    width: "100%",
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 1,
-    elevation: 3,
-  },
+  
+  
 });
 
 export default NewEvent;
