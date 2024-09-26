@@ -43,7 +43,7 @@ const NewEvent: React.FC<NewEventProps> = ({ show, setShow }) => {
                     />
                   </TouchableOpacity>
                 </View>
-
+                      
                 {/* Form for adding new event */}
                 <NewEventForm/>
                 
