@@ -40,7 +40,7 @@ export default function calendarScreen() {
     setAddEvent(!addEvent);
   }
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor:ColorsS.LIGHT_GRAY_Background}}>
       <View style={styles.headers}>
         <UserHeader />
         <DateHeader openAddEventModal={toggleModal} />
@@ -73,6 +73,7 @@ export default function calendarScreen() {
         <NewEvent show={addEvent} setShow={setAddEvent}></NewEvent>
 
         <AgendaList
+        style={{marginTop:-25}}
           sections={ITEMS}
           renderItem={renderItem}
           sectionStyle={styles.section}
@@ -109,7 +110,6 @@ const styles = StyleSheet.create({
     color: ColorsS.Secondary,
     textTransform: "capitalize",
     fontSize: 16,
-    paddingTop: 5,
   },
   headers: {
     padding: 20,
