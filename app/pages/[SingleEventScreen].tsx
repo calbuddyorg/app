@@ -1,19 +1,38 @@
-import { StyleSheet, Image, Platform, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  Platform,
+  View,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { LinearGradient } from "expo-linear-gradient";
 import { ColorsS } from "@/styles/Colors";
+import React, { useEffect } from "react";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 
-export default function TabTwoScreen() {
+
+const SingleEventScreen: React.FC<any> = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
+  const { title, timeStart, timeEnd, location, Date, imguri} = useLocalSearchParams();
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.ImageConatiner}>
         <Image
           style={styles.imgStyling}
-          source={{
-            uri: "https://www.smsu.edu/resources/webspaces/today/articles/images/mppsu222.jpg",
-          }}
+          source={
+            imguri && typeof imguri === 'string'
+              ? { uri: imguri }
+              : {uri: 'https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg?cs=srgb&dl=pexels-felixmittermeier-1459505.jpg&fm=jpg'} // Optional placeholder if the image is invalid
+          }
         />
         <View style={{ ...StyleSheet.absoluteFillObject, top: "60%" }}>
           <LinearGradient
@@ -22,7 +41,7 @@ export default function TabTwoScreen() {
           />
         </View>
         <View style={{ position: "absolute", bottom: 0 }}>
-          <Text style={styles.ImageTitleCaption}>KLK</Text>
+          <Text style={styles.ImageTitleCaption}>{title}</Text>
           <Text style={styles.ImageFriendsCaption}>
             +20 Friends of yours have like this event
           </Text>
@@ -36,11 +55,11 @@ export default function TabTwoScreen() {
             size={30}
             color={ColorsS.Secondary}
           />
-          <Text style={styles.DescriptionInfo}>Mañana Mism</Text>
+          <Text style={styles.DescriptionInfo}>{Date}</Text>
         </View>
         <View style={styles.DataContainer}>
           <Ionicons name="time-outline" size={30} color={ColorsS.Secondary} />
-          <Text style={styles.DescriptionInfo}>10:00am</Text>
+          <Text style={styles.DescriptionInfo}>{timeStart} - {timeEnd}</Text>
         </View>
         <View style={styles.DataContainer}>
           <Ionicons
@@ -48,13 +67,18 @@ export default function TabTwoScreen() {
             size={30}
             color={ColorsS.Secondary}
           />
-          <Text style={styles.DescriptionInfo}>Recriational Event Center</Text>
+          <Text style={styles.DescriptionInfo}>{location}</Text>
         </View>
-      </View>
 
+        <TouchableOpacity style={styles.FavoriteButton}>
+          <Text style={styles.FavoriteText}>Add to favorite</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
-}
+};
+
+export default SingleEventScreen;
 
 const styles = StyleSheet.create({
   ImageConatiner: {
@@ -94,9 +118,16 @@ const styles = StyleSheet.create({
     color: ColorsS.Primary,
     fontSize: 15,
   },
-  FavoriteButton:{
-    backgroundColor:ColorsS.Secondary,
-    width:50,
-    height:50
-  }
+  FavoriteButton: {
+    backgroundColor: ColorsS.Secondary,
+    padding: 15,
+    alignSelf: "center",
+    borderRadius: 99,
+    marginTop: 15,
+  },
+  FavoriteText: {
+    fontSize: 20,
+    color: ColorsS.WHITE,
+    fontWeight: "900",
+  },
 });

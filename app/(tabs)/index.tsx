@@ -13,7 +13,7 @@ export default function TabOneScreen() {
 		<View style={styles.container}>
 			<BottomSheet index={1} snapPoints={snapPoints} enablePanDownToClose={true}>
 				<View style={styles.contentContainer}>
-					<Text>klk mmg</Text>
+					<Text>klk </Text>
 				</View>
 			</BottomSheet>
 		</View>
