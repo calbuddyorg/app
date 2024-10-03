@@ -7,6 +7,7 @@ export default function CalendarTabScreen() {
 
       <Stack.Screen name="index" options={{ headerShown: false }} />
 
+
     </Stack>
   );
 }
