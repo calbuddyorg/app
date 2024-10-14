@@ -5,6 +5,7 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { KeyboardAvoidingView } from 'react-native';
+import { ColorsS } from '@/styles/Colors';
 
 
 
@@ -15,26 +16,29 @@ export default function TabLayout() {
     
     <Tabs
       screenOptions={({ route }) => ({
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: ColorsS.Secondary,
         headerShown: false,
+        tabBarStyle:{
+
+          paddingBottom:3
+        }
       })}>
 
       <Tabs.Screen
         name="index"
-        
         options={{
-          title: 'Home',
+          title: '',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            <TabBarIcon name={focused ? 'home' : 'home'} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="bookmarkScreen"
         options={{
-          title: 'Explore',
+          title: '',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'bookmark' : 'bookmark'} color={color} />
           ),
         }}
       />
@@ -42,9 +46,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(CalendarTab)"
         options={{
-          title: 'Explore',
+          title: '',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'calendar' : 'calendar'} color={color} />
           ),
         }}
       />
