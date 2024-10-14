@@ -2,14 +2,9 @@ import {
   SafeAreaView,
   StyleSheet,
   View,
-  KeyboardAvoidingView,
-  Platform,
-  Modal,
-  Text,
-  TouchableOpacity,
 } from "react-native";
 import React, { useCallback, useRef, useState } from "react";
-import Animated, { FlipInXDown, FlipOutXUp } from "react-native-reanimated";
+
 import {
   ExpandableCalendar,
   CalendarProvider,
