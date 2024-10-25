@@ -11,10 +11,12 @@ import {
 import UserHeader from "@/components/UserHeader";
 import { ColorsS } from "@/styles/Colors";
 import SimpleEventCard from '../../components/SimpleEventCard';
+import SliderForEvents from "@/components/SliderForEvents";
+import { EventInformationType } from "@/interfaces";
 
 const { height, width } = Dimensions.get("window");
 
-const favoriteEvents = [
+const favoriteEvents: EventInformationType[] = [
 
   {
     timeStart: "10:00am",
@@ -47,12 +49,13 @@ export default function TabTwoScreen() {
     <SafeAreaView style={styles.container}>
       <View  style={styles.profileHeader}>
       <UserHeader />
+      <Text style={styles.title}>Favorite Events</Text>
       </View>
       
 
-      <Text style={styles.title}>Favorite Events</Text>
-
-      <FlatList
+      
+      <SliderForEvents  events={favoriteEvents} widthOfCard={width * 0.9} heightOfCard={height * 0.2} horizontal={false}/>
+      {/* <FlatList
         data={favoriteEvents}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
@@ -65,7 +68,7 @@ export default function TabTwoScreen() {
           />
         )}
         contentContainerStyle={styles.flatListContent}
-      />
+      /> */}
     </SafeAreaView>
   );
 }
@@ -73,13 +76,14 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 20,
+
   },
   title: {
-    marginTop: 30,
+    marginTop: 20,
     fontSize: 30,
     fontWeight: 'bold',
     color: ColorsS.Primary,
+    paddingBottom:5
   },
   flatListContent: {
     paddingBottom: 20, // Ensure last card is visible by adding extra padding
@@ -87,6 +91,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   profileHeader:{
-    paddingTop:20
+    paddingTop:20,
+    marginLeft:20
   }
 });

@@ -8,28 +8,40 @@ import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { ColorsS } from "@/styles/Colors";
 import { Link } from "expo-router";
+import { EventInformationType } from "@/interfaces";
+
 
 
 interface SimpleEventCardProps {
-  title: string;
-  img: string;
+  event: EventInformationType
   widthOfCard: number;
   heightOfCard?: number
 }
 
 const SimpleEventCard: React.FC<SimpleEventCardProps> = ({
-  title,
+  event,
   widthOfCard,
   heightOfCard
 }) => {
   const width = widthOfCard;
-
+  const id = 1;
   return (
     <>
       {/* LinearGradient is placed after the image but absolutely positioned to overlay */}
-
+      <Link
+              href={{
+                pathname: "pages/" + { id },
+                params: {
+                  title: event.title,
+                  timeStart: event.timeStart,
+                  timeEnd: event.timeEnd,
+                  location: event.location,
+                  Date: event.Date,
+                },
+              }}
+            >
       <View style={[ { width: width, borderRadius: 20, height: heightOfCard }]}>
-      <Link href="SingleEventScreen.tsx" asChild />
+      
           <Image
             borderRadius={8}
             style={styles.imgStyling}
@@ -42,10 +54,11 @@ const SimpleEventCard: React.FC<SimpleEventCardProps> = ({
               colors={["transparent", ColorsS.BLACK]}
               style={{ flex: 1, borderRadius: 20 }}
             />
-            <Text style={styles.imageCaption}>{title}</Text>
+            <Text style={styles.imageCaption}>{event.title}</Text>
           </View>
-
+            
       </View>
+      </Link>
     </>
   );
 };
