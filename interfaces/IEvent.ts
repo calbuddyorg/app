@@ -1,4 +1,4 @@
-export type EventInformationType = {
+export type IEventInformation = {
     timeStart: string
     timeEnd: string,
     location: string,
