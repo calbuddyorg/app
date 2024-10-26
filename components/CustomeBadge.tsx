@@ -2,14 +2,16 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { ColorsS } from "@/styles/Colors";
 
-interface InterestCardProps {
+interface CustomeBadgeProps {
   title: string;
   emoji: string;
+  active?: boolean;
 }
 
-const InterestCard: React.FC<InterestCardProps> = ({ title, emoji }) => {
+const CustomeBadge: React.FC<CustomeBadgeProps> = ({ title, emoji, active }) => {
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{ backgroundColor: active ? ColorsS.Secondary : ColorsS.WHITE }]}>
       <View style={styles.emojiContainer}>
         <Text>{emoji}</Text>
       </View>
@@ -22,11 +24,10 @@ const InterestCard: React.FC<InterestCardProps> = ({ title, emoji }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginVertical: 10,
+
     padding: 8,
     borderRadius: 10,
     gap: 5,
-    backgroundColor: ColorsS.WHITE,
     alignItems: "center",
     display: "flex",
     shadowColor: "#000",
@@ -50,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InterestCard;
+export default CustomeBadge;

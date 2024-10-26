@@ -13,10 +13,13 @@ import { useEffect } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { ColorsS } from "@/styles/Colors";
-import InterestCard from "./components/interestsCard";
 import SimpleEventCard from "../../../components/SimpleEventCard";
 import VideoPreviewCard from "@/components/VideoPreviewCard";
 import { TouchableOpacity } from "react-native";
+import CustomeBadge from "@/components/CustomeBadge";
+import { EventInformationType } from "@/interfaces";
+import SliderForEvents from "@/components/SliderForEvents";
+
 
 export default function UserProfilePage() {
   const navigation = useNavigation();
@@ -35,13 +38,13 @@ export default function UserProfilePage() {
     { title: "soccer", emoji: "⚽️" },
     { title: "soccersoccersoccer", emoji: "⚽️" },
   ];
-  const attendedEvents = [
+  const attendedEvents: EventInformationType[] = [
     {
       timeStart: "10:00am",
       timeEnd: "12:00pm",
       location: "Dorms",
       Date: "Mañana",
-      title: "Football vs. Minot State",
+      title: "Soccer vs. Minot State",
       imguri:
         "https://www.smsu.edu/resources/webspaces/today/articles/images/mppsu222.jpg",
     },
@@ -133,21 +136,23 @@ export default function UserProfilePage() {
       </View>
 
       <View>
-        <Text style={styles.contentHeading}>Interests</Text>
+        <Text style={[styles.contentHeading, {marginBottom:10}]}>Interests</Text>
         <FlatList
           data={interest}
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ gap: 13, paddingHorizontal: 15 }}
+          contentContainerStyle={{ gap: 13, paddingHorizontal: 15}}
           renderItem={({ item, index }) => (
-            <InterestCard key={index} emoji={item.emoji} title={item.title} />
+            <CustomeBadge key={index} emoji={item.emoji} title={item.title} />
           )}
         ></FlatList>
       </View>
 
       <View>
-        <Text style={styles.contentHeading}>Attended Events</Text>
-        <FlatList
+        <Text style={[styles.contentHeading]}>Attended Events</Text>
+        
+        <SliderForEvents events={attendedEvents} widthOfCard={width * 0.65} heightOfCard={height * 0.16}/>
+        {/* <FlatList
           data={attendedEvents}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -179,11 +184,11 @@ export default function UserProfilePage() {
               />
             </Link>
           )}
-        ></FlatList>
+        ></FlatList> */}
       </View>
 
       <View>
-        <Text style={styles.contentHeading}>Videos</Text>
+        <Text style={[styles.contentHeading, {marginBottom:10}]}>Videos</Text>
       </View>
       <View style={styles.videosContainer}>
         {images.map((image, index) => (
@@ -248,11 +253,12 @@ const styles = StyleSheet.create({
     color: ColorsS.Primary,
     marginHorizontal: 15,
     marginTop: 10,
+    
   },
   videosContainer: {
     flexDirection: "row",
     flexWrap: "wrap", // This will wrap the images into new rows
     justifyContent: "space-between", // Distribute the space between images
-    padding: 10,
+    paddingHorizontal:10
   },
 });
